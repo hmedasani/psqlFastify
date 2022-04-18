@@ -1,0 +1,26 @@
+containers:
+  build-env:
+    image: node:16.14.2
+    volumes:
+      - local: .
+        container: /code
+      - type: cache
+        container: /code/node_modules
+        name: node_modules
+    working_directory: /code
+
+tasks:
+  install-dep:
+    description: Install dependencies for the application
+    run:
+      container: build-env
+      command: yarn install
+
+  run-dev:
+    description: Run the application in dev mode
+    run:
+      container: build-env
+      command: yarn dev
+      ports:
+        - local: 5000
+          container: 5000
