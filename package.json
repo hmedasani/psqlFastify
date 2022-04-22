@@ -8,12 +8,14 @@
     "lint": "eslint '**/*.js' --fix --ignore-pattern node_modules/",
     "format": "prettier --write '**/*.js'",
     "test": "jest",
-    "test:w": "jest --watchAll"
+    "test:w": "jest --watchAll",
+    "dbmigrate": "./node_modules/.bin/db-migrate create test-schema-init"
   },
   "dependencies": {
     "db-migrate": "^0.11.13",
     "db-migrate-pg": "^1.2.2",
     "fastify": "^3.28.0",
+    "fastify-plugin": "^3.0.1",
     "pg-promise": "^10.11.1"
   },
   "devDependencies": {

@@ -9,6 +9,14 @@ containers:
         name: node_modules
     working_directory: /code
 
+  # postgres sql container
+  db:
+    image: postgres:14.2
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: app
+      POSTGRES_DB: db
+    
 tasks:
   install-dep:
     description: Install dependencies for the application
@@ -19,8 +27,13 @@ tasks:
   run-dev:
     description: Run the application in dev mode
     run:
+      environment:
+        PORT: 5000
+        POSTGRES_URI: postgres://app:password@db/db
       container: build-env
       command: yarn dev
       ports:
         - local: 5000
           container: 5000
+    dependencies:
+      - db
